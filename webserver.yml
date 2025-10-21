@@ -1,0 +1,22 @@
+- name: Configurar un servidor web Apache
+  hosts: all
+  become: yes
+  tasks:
+    - name: Instalar Apache
+      ansible.builtin.yum:
+        name: httpd
+        state: present
+
+    - name: Iniciar y habilitar el servicio Apache
+      ansible.builtin.service:
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: Crear una página web de ejemplo
+      ansible.builtin.copy:
+        dest: /var/www/html/index.html
+        content: |
+          <html>
+            <h1>Servidor Web configurado con Ansible y AWS Systems Manager</h1>
+          </html>
